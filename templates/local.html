@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- Original work Copyright (c) 2017 Samuel Dunne-Mucklow -->
+<html>
+    <head>
+        <title>VST Manager</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <form action="/store">
+                <input type="submit" value="To Store" />
+            </form>
+            <form action="/local", method="post">
+                <input name="locationTextBox" type = "text" />
+                <br>
+                <input class="SubmitButton" type="submit" name="SUBMITBUTTON" value="Submit"/>
+            </form>
+            {% if localPath %}
+            VSTs in {{ localPath }}<br>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                    <td>Name</td>
+                    <td>Creator</td>
+                    <td>Links</td>
+                    </tr>
+                    {% for x in range(vstList|length) %}
+                        <tr>
+                        <td>{{ vstList[x][0] }}</td>
+                        <td>{{ vstList[x][1] }}</td>
+                        <td><a href="/local/install/{{ x }}">Reinstall</a>, <a href="/local/uninstall/{{ x }}">Uninstall</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+            <p>No local path: Enter a local path in the form above and hit Submit</p>
+            {% endif %}
+        </div>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="static/js/bootstrap.min.js"></script>
+    </body>
+</html>
+

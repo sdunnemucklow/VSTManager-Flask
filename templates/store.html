@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- Original work Copyright (c) 2017 Samuel Dunne-Mucklow -->
+<html>
+    <head>
+        <title>VST Manager</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <form action="/local">
+                <input type="submit" value="To Local" />
+            </form>
+            <form action="/store", method="post">
+                <input type="text" name="storeTextBox" value="{{ storeUrl }}" />
+                <br>
+                <input class="SubmitButton" type="submit" name="SUBMITBUTTON" value="Submit" />
+            </form>
+            {% if storeUrl %}
+            VSTs in store {{ storeUrl }}<br>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                    <td>Name</td>
+                    <td>Tags</td>
+                    <td>Links</td>
+                    </tr>
+                    {% for index in range(vstList|length) %}
+                        <tr>
+                        <td>{{ vstList[index][0] }}</td>
+                        <td>{{ vstList[index][1] }}</td>
+                        <td><a href="/store/install/{{ index }}">Install</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+            <p>No store selected: Enter a store URL in the form above and hit Submit</p>
+            {% endif %}
+        </div>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="static/js/bootstrap.min.js"></script>
+    </body>
+</html>
+
